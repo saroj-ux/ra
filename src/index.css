@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    /* Core brand colors - Clean Indigo/Purple primary */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary - Indigo/Purple */
+    --primary: 246 80% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Soft gray */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    /* Accent - Orange for highlights */
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 246 80% 60%;
+
+    --radius: 0.75rem;
+
+    /* Extended palette */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+
+    /* Service category colors */
+    --service-ac: 246 80% 60%;
+    --service-electrical: 38 92% 50%;
+    --service-plumbing: 199 89% 48%;
+    --service-cleaning: 142 76% 36%;
+    --service-salon: 328 85% 70%;
+
+    /* Section backgrounds */
+    --section-bg: 240 14% 97%;
+    --section-alt: 246 100% 97%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(246 80% 60%) 0%, hsl(260 80% 65%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(240 20% 98%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(246 80% 60%) 0%, hsl(246 80% 50%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(25 95% 53%) 0%, hsl(25 95% 45%) 100%);
+
+    /* Shadows - softer and more modern */
+    --shadow-sm: 0 1px 2px 0 hsl(220 13% 70% / 0.15);
+    --shadow-md: 0 4px 6px -1px hsl(220 13% 70% / 0.1), 0 2px 4px -2px hsl(220 13% 70% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(220 13% 70% / 0.15), 0 4px 6px -4px hsl(220 13% 70% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(220 13% 70% / 0.15), 0 8px 10px -6px hsl(220 13% 70% / 0.1);
+    --shadow-primary: 0 10px 30px -10px hsl(246 80% 60% / 0.35);
+    --shadow-card: 0 1px 3px 0 hsl(220 13% 70% / 0.1), 0 1px 2px -1px hsl(220 13% 70% / 0.1);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 246 80% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 246 100% 97%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 246 80% 60%;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 13%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 13%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 246 80% 65%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 246 80% 65%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+
+    --section-bg: 222 47% 9%;
+    --section-alt: 246 30% 15%;
+
+    --shadow-sm: 0 1px 2px 0 hsl(222 47% 5% / 0.5);
+    --shadow-md: 0 4px 6px -1px hsl(222 47% 5% / 0.5);
+    --shadow-lg: 0 10px 15px -3px hsl(222 47% 5% / 0.5);
+    --shadow-xl: 0 20px 25px -5px hsl(222 47% 5% / 0.5);
+    --shadow-primary: 0 10px 30px -10px hsl(246 80% 60% / 0.3);
+    --shadow-card: 0 2px 8px -2px hsl(222 47% 5% / 0.5);
+
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 246 80% 65%;
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 246 80% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .bg-gradient-hero {
+    background-image: var(--gradient-hero);
+  }
+
+  .bg-gradient-cta {
+    background-image: var(--gradient-cta);
+  }
+
+  .bg-gradient-accent {
+    background-image: var(--gradient-accent);
+  }
+
+  .bg-section {
+    background-color: hsl(var(--section-bg));
+  }
+
+  .bg-section-alt {
+    background-color: hsl(var(--section-alt));
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-primary {
+    box-shadow: var(--shadow-primary);
+  }
+
+  .glass {
+    @apply backdrop-blur-md bg-background/80;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  .animate-pulse-soft {
+    animation: pulseSoft 2s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
