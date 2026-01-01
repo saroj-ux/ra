@@ -10,12 +10,74 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cities, City, categoryLabels, categoryPrices, ServiceCategory } from "@/types";
-import { ChevronDown, Home, Wrench, Star, Droplets, Sparkles } from "lucide-react";
+import { ChevronDown, Home, Wrench, Star, Droplets } from "lucide-react";
+import { useState } from "react";
 
 const categories: ServiceCategory[] = ["ac", "electrical", "plumbing", "cleaning"];
 
+// --- NEW HELPER COMPONENT TO HANDLE IMAGE LOADING ---
+function ServiceCard({ service }: { service: any }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div className="bg-card p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-border/50 flex flex-col items-center text-center">
+      {/* Image Container with Relative positioning */}
+      <div className="relative w-full h-40 mb-4 rounded-lg overflow-hidden bg-muted">
+        
+        {/* 1. Placeholder / Skeleton (Visible only while loading) */}
+        {!isLoaded && (
+          <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+            <span className="text-muted-foreground/20">Loading...</span>
+          </div>
+        )}
+
+        {/* 2. The Image */}
+        <img 
+          src={service.img} 
+          alt={service.title} 
+          loading="lazy" // Native lazy loading
+          onLoad={() => setIsLoaded(true)}
+          className={`w-full h-full object-cover transition-all duration-500 ${
+            isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
+          }`} 
+        />
+      </div>
+
+      <h3 className="text-lg font-medium text-foreground mb-1">{service.title}</h3>
+      <p className="text-sm text-muted-foreground">{service.description}</p>
+    </div>
+  );
+}
+
 export function HeroSection() {
   const { selectedCity, setSelectedCity } = useAuth();
+
+  const servicesList = [
+    {
+      title: 'Electronic Appliances',
+      description: 'Repair and maintenance of all home appliances',
+      icon: 'electrical',
+      img: 'electronicAppliances.jpg'
+    },
+    {
+      title: 'Handyman Service',
+      description: 'All types of home repair and maintenance',
+      icon: 'plumbing',
+      img: 'HandyManServices.jpg'
+    },
+    {
+      title: 'Cleaning',
+      description: 'Professional home and office cleaning services',
+      icon: 'cleaning',
+      img: 'cleaningServices.jpg'
+    },
+    {
+      title: 'Civil Work',
+      description: 'Construction and renovation services',
+      icon: 'ac',
+      img: 'civilWork.jpg'
+    }
+  ];
 
   return (
     <section className="relative bg-gradient-hero overflow-hidden">
@@ -55,7 +117,7 @@ export function HeroSection() {
             </p>
 
             {/* City selector & CTA */}
-           
+            
           </div>
 
           {/* Right Column - Booked Home */}
@@ -86,28 +148,10 @@ export function HeroSection() {
                 </Link>
               </div>
             </div>
-            
-            {/* <div className="space-y-4">
-              <div className="flex items-center p-4 bg-muted/30 rounded-lg">
-                <div className="bg-primary/10 p-3 rounded-lg mr-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary">
-                    <path d="M12 2a3 3 0 0 0-3 3c0 1.12.5 2.01 1.5 2.5.5.23 1 .5 1.5.5s1-.27 1.5-.5c1-.49 1.5-1.38 1.5-2.5a3 3 0 0 0-3-3z"></path>
-                    <path d="M19 8h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2"></path>
-                    <path d="M12 3v18"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-medium text-foreground">No services booked yet</h3>
-                  <p className="text-sm text-muted-foreground">Your upcoming services will appear here</p>
-                </div>
-              </div>
-              <Button variant="outline" className="w-full mt-4">
-                View Booking History
-              </Button>
-            </div> */}
           </div>
         </div>
       </div>
+      
       {/* our Services Section */}
       <div className="bg-background py-12 md:py-16">
         <div className="container">
@@ -116,71 +160,13 @@ export function HeroSection() {
             <p className="text-muted-foreground">Choose from our wide range of home services</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full">
-            {[
-              {
-                title: 'Electronic Appliances',
-                description: 'Repair and maintenance of all home appliances',
-                icon: 'electrical'
-              },
-              {
-                title: 'Handyman Service',
-                description: 'All types of home repair and maintenance',
-                icon: 'plumbing'
-              },
-              {
-                title: 'Cleaning',
-                description: 'Professional home and office cleaning services',
-                icon: 'cleaning'
-              },
-              {
-                title: 'Civil Work',
-                description: 'Construction and renovation services',
-                icon: 'ac'
-              }
-            ].map((service, index) => (
-              <div 
-                key={index}
-                className="bg-card p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-border/50 flex flex-col items-center text-center"
-              >
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${service.icon === 'electrical' ? 'text-service-electrical bg-service-electrical/10' : 
-                  service.icon === 'plumbing' ? 'text-service-plumbing bg-service-plumbing/10' :
-                  service.icon === 'cleaning' ? 'text-service-cleaning bg-service-cleaning/10' :
-                  'text-service-ac bg-service-ac/10'}`}
-                >
-                  {service.icon === 'electrical' ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                    </svg>
-                  ) : service.icon === 'plumbing' ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-                      <path d="M9 3h6v2a3 3 0 0 1-3 3v0a3 3 0 0 1-3-3V3z"/>
-                      <path d="M12 8v4"/>
-                      <path d="M5 12h14"/>
-                      <path d="M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>
-                    </svg>
-                  ) : service.icon === 'cleaning' ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-                      <path d="M10 5a2 2 0 0 1 4 0v2h-4V5z"/>
-                      <path d="M8 7h8l-1 13H9L8 7z"/>
-                      <path d="M12 11v5"/>
-                    </svg>
-                  ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-                      <path d="M8 2h8a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/>
-                      <path d="M8 10v2"/>
-                      <path d="M16 10v2"/>
-                      <path d="M12 10v4"/>
-                      <path d="M8 16s1 4 4 4 4-4 4-4"/>
-                    </svg>
-                  )}
-                </div>
-                <h3 className="text-lg font-medium text-foreground mb-1">{service.title}</h3>
-                <p className="text-sm text-muted-foreground">{service.description}</p>
-              </div>
+            {servicesList.map((service, index) => (
+              <ServiceCard key={index} service={service} />
             ))}
           </div>
         </div>
       </div>
+      
       {/* Popular Services Section */}
       <div className="bg-background py-12 md:py-16">
         <div className="container">
